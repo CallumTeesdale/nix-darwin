@@ -39,10 +39,10 @@
         ./modules/nix-core.nix
         ./modules/system.nix
         ./modules/apps.nix
-        ./modules/host-users.nix {
+        (import ./modules/host-users.nix {
           username = mbaUsername;
           hostname = mbaHostname;
-        }
+        })
 
         # home manager
         home-manager.darwinModules.home-manager {
@@ -51,6 +51,7 @@
           home-manager.extraSpecialArgs = mbaSpecialArgs;
           home-manager.users.${mbaUsername} = import ./home {
             username = mbaUsername;
+            useremail = mbaUseremail;
           };
         }
       ];
@@ -63,10 +64,10 @@
         ./modules/nix-core.nix
         ./modules/system.nix
         ./modules/apps.nix
-        ./modules/host-users.nix {
+        (import ./modules/host-users.nix {
           username = miniUsername;
           hostname = miniHostname;
-        }
+        })
 
         # home manager
         home-manager.darwinModules.home-manager {
@@ -75,6 +76,7 @@
           home-manager.extraSpecialArgs = miniSpecialArgs;
           home-manager.users.${miniUsername} = import ./home {
             username = miniUsername;
+            useremail = miniUseremail;
           };
         }
       ];

@@ -24,8 +24,6 @@
     rustup
     rust-analyzer
 
-    # applications 
-    jetbrains-toolbox
   ];
 
   programs = {
