@@ -1,7 +1,7 @@
 # just is a command runner, Justfile is very similar to Makefile, but simpler.
 
-# Define the flake path
-flake_path := "."
+# TODO update hostname here!
+hostname := "mac"
 
 # List all the just commands
 default:
@@ -13,27 +13,24 @@ default:
 #
 ############################################################################
 
+#  TODO Feel free to remove this target if you don't need a proxy to speed up the build process
 [group('desktop')]
-darwin hostname:
-  nix build {{flake_path}}#darwinConfigurations.{{hostname}}.system \
-    --extra-experimental-features 'nix-command flakes'
-  ./result/sw/bin/darwin-rebuild switch --flake {{flake_path}}#{{hostname}}
+darwin-set-proxy:
+  sudo python3 scripts/darwin_set_proxy.py
 
 [group('desktop')]
-darwin-debug hostname:
-  nix build {{flake_path}}#darwinConfigurations.{{hostname}}.system --show-trace --verbose \
+darwin: darwin-set-proxy
+  nix build .#darwinConfigurations.{{hostname}}.system \
     --extra-experimental-features 'nix-command flakes'
+
+  ./result/sw/bin/darwin-rebuild switch --flake .#{{hostname}}
+
+[group('desktop')]
+darwin-debug: darwin-set-proxy
+  nix build .#darwinConfigurations.{{hostname}}.system --show-trace --verbose \
+    --extra-experimental-features 'nix-command flakes'
+
   ./result/sw/bin/darwin-rebuild switch --flake .#{{hostname}} --show-trace --verbose
-
-# Command to rebuild the MacBook Air configuration
-[group('desktop')]
-rebuild-mba:
-    darwin-rebuild switch --flake ${flake_path}#macbook-ainix flake init -t nix-darwinr
-
-# Command to rebuild the Mac Mini configuration
-[group('desktop')]
-rebuild-mini:
-    darwin-rebuild switch --flake ${flake_path}#mac-mini
 
 ############################################################################
 #
@@ -80,10 +77,9 @@ gc:
 [group('nix')]
 fmt:
   # format the nix files in this repo
-  nix fmt --experimental-features 'nix-command flakes' .
+  nix fmt
 
 # Show all the auto gc roots in the nix store
 [group('nix')]
 gcroot:
   ls -al /nix/var/nix/gcroots/auto/
-

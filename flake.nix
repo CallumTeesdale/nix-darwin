@@ -1,89 +1,87 @@
 {
   description = "Nix for macOS configuration";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    darwin.url = "github:lnl7/nix-darwin";
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+  ##################################################################################################################
+  #
+  # Want to know Nix in details? Looking for a beginner-friendly tutorial?
+  # Check out https://github.com/ryan4yin/nixos-and-flakes-book !
+  #
+  ##################################################################################################################
+
+  # the nixConfig here only affects the flake itself, not the system configuration!
+  nixConfig = {
+    substituters = [
+      # Query the mirror of USTC first, and then the official cache.
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
+      "https://cache.nixos.org"
+    ];
   };
 
-  outputs = inputs @ { self, nixpkgs, darwin, home-manager, ... }: let
-    # MacBook Air configuration
-    mbaUsername = "callum";
-    mbaUseremail = "callumjamesteesdale@gmail.com";
-    mbaSystem = "aarch64-darwin";
-    mbaHostname = "macbook-air";
+  # This is the standard format for flake.nix. `inputs` are the dependencies of the flake,
+  # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
+  inputs = {
+    # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
 
-    mbaSpecialArgs =
-      inputs
-      // {
-        inherit mbaUsername mbaUseremail mbaHostname;
-      };
-
-    # Mac Mini configuration
-    miniUsername = "callum";
-    miniUseremail = "callumjamesteesdale@gmail.com";
-    miniSystem = "aarch64-darwin";
-    miniHostname = "mac-mini";
-
-    miniSpecialArgs =
-      inputs
-      // {
-        inherit miniUsername miniUseremail miniHostname;
-      };
-  in {
-    darwinConfigurations."${mbaHostname}" = darwin.lib.darwinSystem {
-      system = mbaSystem;
-      specialArgs = mbaSpecialArgs;
-      modules = [
-        ./modules/nix-core.nix
-        ./modules/system.nix
-        ./modules/apps.nix
-        (import ./modules/host-users.nix {
-          username = mbaUsername;
-          hostname = mbaHostname;
-        })
-
-        # home manager
-        home-manager.darwinModules.home-manager {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = mbaSpecialArgs;
-          home-manager.users.${mbaUsername} = import ./home {
-            username = mbaUsername;
-            useremail = mbaUseremail;
-          };
-        }
-      ];
+    # home-manager, used for managing user configuration
+    home-manager = {
+      url = "github:nix-community/home-manager/release-24.05";
+      # The `follows` keyword in inputs is used for inheritance.
+      # Here, `inputs.nixpkgs` of home-manager is kept consistent with the `inputs.nixpkgs` of the current flake,
+      # to avoid problems caused by different versions of nixpkgs dependencies.
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
-    darwinConfigurations."${miniHostname}" = darwin.lib.darwinSystem {
-      system = miniSystem;
-      specialArgs = miniSpecialArgs;
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+  };
+
+  # The `outputs` function will return all the build results of the flake.
+  # A flake can have many use cases and different types of outputs,
+  # parameters in `outputs` are defined in `inputs` and can be referenced by their names.
+  # However, `self` is an exception, this special parameter points to the `outputs` itself (self-reference)
+  # The `@` syntax here is used to alias the attribute set of the inputs's parameter, making it convenient to use inside the function.
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    darwin,
+    home-manager,
+    ...
+  }: let
+    # TODO replace with your own username, email, system, and hostname
+    username = "callum";
+    useremail = "callumjamesteesdale@gmail.com";
+    system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
+    hostname = "mac";
+
+    specialArgs =
+      inputs
+      // {
+        inherit username useremail hostname;
+      };
+  in {
+    darwinConfigurations."${hostname}" = darwin.lib.darwinSystem {
+      inherit system specialArgs;
       modules = [
         ./modules/nix-core.nix
         ./modules/system.nix
         ./modules/apps.nix
-        (import ./modules/host-users.nix {
-          username = miniUsername;
-          hostname = miniHostname;
-        })
+        ./modules/host-users.nix
 
         # home manager
-        home-manager.darwinModules.home-manager {
+        home-manager.darwinModules.home-manager
+        {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = miniSpecialArgs;
-          home-manager.users.${miniUsername} = import ./home {
-            username = miniUsername;
-            useremail = miniUseremail;
-          };
+          home-manager.extraSpecialArgs = specialArgs;
+          home-manager.users.${username} = import ./home;
         }
       ];
     };
 
     # nix code formatter
-    formatter.${mbaSystem} = nixpkgs.legacyPackages.${mbaSystem}.alejandra;
-    formatter.${miniSystem} = nixpkgs.legacyPackages.${miniSystem}.alejandra;
+    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
   };
 }
