@@ -48,7 +48,8 @@
       };
   in {
     darwinConfigurations."${mbaHostname}" = darwin.lib.darwinSystem {
-      inherit mbaSystem mbaSpecialArgs;
+      system = mbaSystem;
+      specialArgs = mbaSpecialArgs;
       modules = [
         ./modules/nix-core.nix
         ./modules/system.nix
@@ -67,7 +68,8 @@
     };
 
     darwinConfigurations."${miniHostname}" = darwin.lib.darwinSystem {
-      inherit miniSystem miniSpecialArgs;
+      system = miniSystem;
+      specialArgs = miniSpecialArgs;
       modules = [
         ./modules/nix-core.nix
         ./modules/system.nix
