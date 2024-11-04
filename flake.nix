@@ -1,21 +1,6 @@
 {
   description = "Nix for macOS configuration";
 
-  ##################################################################################################################
-  #
-  # Want to know Nix in details? Looking for a beginner-friendly tutorial?
-  # Check out https://github.com/ryan4yin/nixos-and-flakes-book !
-  #
-  ##################################################################################################################
-
-  # the nixConfig here only affects the flake itself, not the system configuration!
-  nixConfig = {
-    substituters = [
-      # Query the mirror of USTC first, and then the official cache.
-      "https://cache.nixos.org"
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     darwin.url = "github:lnl7/nix-darwin";
@@ -54,15 +39,19 @@
         ./modules/nix-core.nix
         ./modules/system.nix
         ./modules/apps.nix
-        ./modules/host-users.nix
+        ./modules/host-users.nix {
+          username = mbaUsername;
+          hostname = mbaHostname;
+        }
 
         # home manager
-        home-manager.darwinModules.home-manager
-        {
+        home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = mbaSpecialArgs;
-          home-manager.users.${mbaUsername} = import ./home;
+          home-manager.users.${mbaUsername} = import ./home {
+            username = mbaUsername;
+          };
         }
       ];
     };
@@ -74,15 +63,19 @@
         ./modules/nix-core.nix
         ./modules/system.nix
         ./modules/apps.nix
-        ./modules/host-users.nix
+        ./modules/host-users.nix {
+          username = miniUsername;
+          hostname = miniHostname;
+        }
 
         # home manager
-        home-manager.darwinModules.home-manager
-        {
+        home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = miniSpecialArgs;
-          home-manager.users.${miniUsername} = import ./home;
+          home-manager.users.${miniUsername} = import ./home {
+            username = miniUsername;
+          };
         }
       ];
     };
