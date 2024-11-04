@@ -22,7 +22,6 @@
 
     # programming
     rustup
-    rust-analyzer
 
   ];
 
