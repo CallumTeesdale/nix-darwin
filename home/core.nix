@@ -12,7 +12,6 @@
     fzf # A command-line fuzzy finder
 
     # misc
-    cowsay
     file
     which
     tree
@@ -20,6 +19,13 @@
 
     # productivity
     glow # markdown previewer in terminal
+
+    # programming
+    rustup
+    rust-analyzer
+
+    # applications 
+    jetbrains-toolbox
   ];
 
   programs = {
