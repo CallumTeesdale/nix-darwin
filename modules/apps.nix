@@ -55,6 +55,8 @@
       "raycast"
       "stats"
       "tailscale"
+      "slack"
+      "twingate"
     ];
   };
 }
