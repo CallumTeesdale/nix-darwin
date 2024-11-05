@@ -20,13 +20,10 @@
 
     taps = [
       "homebrew/services"
-      "rust-lang/rust"
     ];
 
     brews = [
       # Development tools
-      "dotnet-sdk" # .NET SDK
-      "rust-analyzer" # Rust language server
       "cmake" # Required for some Rust builds
       "llvm" # Required for some Rust builds
       "protobuf" # Protocol buffers
@@ -46,11 +43,11 @@
     casks = [
       # IDEs and editors
       "visual-studio-code"
-      "jetbrains-rider" # .NET IDE
 
       # Dev tools
       "docker"
-      "postman" # API testing
+      "dotnet-sdk" # .NET SDK
+      "insomnia" # REST client
 
       # Utils
       "1password"
