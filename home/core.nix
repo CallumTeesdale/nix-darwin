@@ -9,11 +9,11 @@
     cargo-expand
     nodejs
     python3
-    
+
     # Build tools
     pkg-config
     openssl
-    
+
     # Database tools
     sqlx-cli
 
@@ -21,7 +21,7 @@
     kubectl
     kubectx
     k9s
-    
+
     # Cloud tools
     azure-cli
 
@@ -38,14 +38,14 @@
     htop
     bottom
     hyperfine
-    
+
     # Archives
     zip
     xz
     unzip
 
     # Fonts
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (nerdfonts.override {fonts = ["JetBrainsMono"];})
 
     # misc
     file

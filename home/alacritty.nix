@@ -10,7 +10,6 @@
 
         dynamic_padding = true;
         decorations = "full";
-      
       };
 
       font = {

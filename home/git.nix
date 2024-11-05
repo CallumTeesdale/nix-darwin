@@ -63,7 +63,7 @@
       # aliases for submodule
       update = "submodule update --init --recursive";
       foreach = "submodule foreach";
-      
+
       # verification aliases
       verify = "verify-commit"; # Verify a signed commit
     };

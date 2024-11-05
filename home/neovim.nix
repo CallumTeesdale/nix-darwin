@@ -6,7 +6,7 @@
   userConfig = pkgs.writeText "user-config.lua" ''
     return {
       colorscheme = "catppuccin",
-      
+
       plugins = {
         {
           "catppuccin/nvim",
@@ -81,7 +81,7 @@
       polish = function()
         -- Set up auto commands
         local autocmd = vim.api.nvim_create_autocmd
-        
+
         -- Auto format on save for specific file types
         autocmd("BufWritePre", {
           pattern = { "*.rs", "*.lua", "*.nix", "*.cs" },
@@ -112,7 +112,6 @@
 
     echo "AstroNvim has been installed. Please start nvim to complete plugin installation."
   '';
-
 in {
   programs.neovim = {
     enable = true;
@@ -127,7 +126,7 @@ in {
       nodePackages.vscode-langservers-extracted # html, css, json, eslint
       omnisharp-roslyn # C#
       nil # Nix
-      
+
       # Tools required for various plugins
       ripgrep
       fd
@@ -136,7 +135,7 @@ in {
       # For telescope
       gcc
       gnumake
-      
+
       # For formatters
       prettierd
       stylua
