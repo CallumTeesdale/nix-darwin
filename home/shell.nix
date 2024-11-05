@@ -12,19 +12,7 @@
 
   home.shellAliases = {
     k = "kubectl";
-
-    # git
-    g = "git";
-    gs = "git status";
-    ga = "git add";
-    gc = "git commit";
-    gca = "git commit -a";
-    gcm = "git commit -m";
-    gp = "git push";
-    gpl = "git pull";
-    gco = "git checkout";
-    gb = "git branch";
-
+    
     # docker
     dgc = "docker system prune -a";
   };
