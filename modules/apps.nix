@@ -55,6 +55,7 @@
       "fd" # A simple, fast and user-friendly alternative to 'find'
       "zoxide" # A faster way to navigate your filesystem
       "zsh-autosuggestions" # Fish-like autosuggestions for zsh
+      "atuin"
     ];
 
     # `brew install --cask`
@@ -63,6 +64,7 @@
       "visual-studio-code"
       "1password" # password manager
       "alacritty" # terminal
+      "docker" # container
 
       # IM & audio & remote desktop & meeting
       "signal"
