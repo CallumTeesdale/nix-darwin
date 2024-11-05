@@ -51,6 +51,10 @@
     brews = [
       "wget" # download tool
       "curl" # no not install curl via nixpkgs, it's not working well on macOS!
+      "bat" # A cat(1) clone with wings.
+      "fd" # A simple, fast and user-friendly alternative to 'find'
+      "zoxide" # A faster way to navigate your filesystem
+      "zsh-autosuggestions" # Fish-like autosuggestions for zsh
     ];
 
     # `brew install --cask`
@@ -58,6 +62,7 @@
     casks = [
       "visual-studio-code"
       "1password" # password manager
+      "alacritty" # terminal
 
       # IM & audio & remote desktop & meeting
       "signal"
