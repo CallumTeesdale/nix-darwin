@@ -24,5 +24,8 @@
     gpl = "git pull";
     gco = "git checkout";
     gb = "git branch";
+
+    # docker
+    dgc = "docker system prune -a";
   };
 }

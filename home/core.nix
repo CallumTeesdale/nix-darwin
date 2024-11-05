@@ -22,7 +22,6 @@
 
     # programming
     rustup
-
   ];
 
   programs = {
