@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.alacritty = {
     enable = true;
     settings = {
@@ -8,8 +8,8 @@
           y = 15;
         };
         # Remove the decorations = "none" line to keep the default window decorations
-        opacity = 0.98;  # Slight transparency
-        
+        opacity = 0.98; # Slight transparency
+
         # Add some window options
         dynamic_padding = true;
         dynamic_title = true;
@@ -70,14 +70,46 @@
 
       # Add key bindings for common operations
       key_bindings = [
-        { key = "N"; mods = "Command"; action = "CreateNewWindow"; }
-        { key = "W"; mods = "Command"; action = "Quit"; }
-        { key = "V"; mods = "Command"; action = "Paste"; }
-        { key = "C"; mods = "Command"; action = "Copy"; }
-        { key = "F"; mods = "Command|Control"; action = "ToggleFullscreen"; }
-        { key = "Key0"; mods = "Command"; action = "ResetFontSize"; }
-        { key = "Equals"; mods = "Command"; action = "IncreaseFontSize"; }
-        { key = "Minus"; mods = "Command"; action = "DecreaseFontSize"; }
+        {
+          key = "N";
+          mods = "Command";
+          action = "CreateNewWindow";
+        }
+        {
+          key = "W";
+          mods = "Command";
+          action = "Quit";
+        }
+        {
+          key = "V";
+          mods = "Command";
+          action = "Paste";
+        }
+        {
+          key = "C";
+          mods = "Command";
+          action = "Copy";
+        }
+        {
+          key = "F";
+          mods = "Command|Control";
+          action = "ToggleFullscreen";
+        }
+        {
+          key = "Key0";
+          mods = "Command";
+          action = "ResetFontSize";
+        }
+        {
+          key = "Equals";
+          mods = "Command";
+          action = "IncreaseFontSize";
+        }
+        {
+          key = "Minus";
+          mods = "Command";
+          action = "DecreaseFontSize";
+        }
       ];
     };
   };

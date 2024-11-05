@@ -9,11 +9,11 @@
     cargo-expand # expand macros
     nodejs # required for some neovim plugins
     python3 # required for some neovim plugins
-    
+
     # Build tools
     pkg-config # Required for some Rust builds
     openssl # Required for some Rust builds
-    
+
     # Database tools
     sqlx-cli # SQL toolkit for Rust
 
@@ -21,7 +21,6 @@
     kubectl
     kubectx # switch between clusters and namespaces
     k9s # terminal UI for kubernetes
-  
 
     # Utils
     ripgrep # recursively searches directories for a regex pattern
@@ -36,14 +35,14 @@
     htop # process viewer
     bottom # system monitor
     hyperfine # benchmarking tool
-    
+
     # Archives
     zip
     xz
     unzip
 
     # Fonts
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    (nerdfonts.override {fonts = ["JetBrainsMono"];})
 
     # misc
     file

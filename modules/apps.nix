@@ -1,8 +1,8 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     neovim
     git
-    just # use Justfile to simplify nix-darwin's commands 
+    just # use Justfile to simplify nix-darwin's commands
   ];
   environment.variables.EDITOR = "nvim";
 
@@ -11,7 +11,7 @@
 
     onActivation = {
       autoUpdate = true;
-      upgrade = true; 
+      upgrade = true;
       cleanup = "zap";
     };
 
@@ -31,10 +31,10 @@
       "llvm" # Required for some Rust builds
       "protobuf" # Protocol buffers
       "grpcurl" # Like curl, but for gRPC
-      
+
       # CLI tools
       "wget"
-      "curl" 
+      "curl"
       "bat"
       "fd"
       "zoxide"
@@ -51,7 +51,7 @@
       # Dev tools
       "docker"
       "postman" # API testing
-      
+
       # Utils
       "1password"
       "signal"
