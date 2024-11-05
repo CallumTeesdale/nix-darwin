@@ -14,16 +14,10 @@
     pkg-config
     openssl
 
-    # Database tools
-    sqlx-cli
-
     # Kubernetes tools
     kubectl
     kubectx
     k9s
-
-    # Cloud tools
-    azure-cli
 
     # Utils
     ripgrep
