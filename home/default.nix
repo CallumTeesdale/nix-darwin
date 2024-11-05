@@ -1,8 +1,6 @@
+{ username, useremail, ... }:
+
 {
-  username,
-  useremail,
-  ...
-}: {
   # import sub modules
   imports = [
     ./shell.nix
@@ -10,6 +8,7 @@
     ./git.nix
     ./starship.nix
     ./alacritty.nix
+    ./neovim.nix
   ];
 
   home = {
