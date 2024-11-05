@@ -5,7 +5,7 @@
     initExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
       source #{HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-      echo 'eval "$(atuin init zsh)"' >> ~/.zshrc
+      eval "$(atuin init zsh)"
     '';
   };
 
