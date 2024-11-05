@@ -2,47 +2,8 @@
   pkgs,
   lib,
   ...
-}: {
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    vimAlias = true;
-
-    extraPackages = with pkgs; [
-      # Language servers
-      lua-language-server
-      rust-analyzer
-      nodePackages.typescript-language-server
-      nodePackages.vscode-langservers-extracted # html, css, json, eslint
-      omnisharp-roslyn # C#
-      nil # Nix
-      
-      # Tools required for various plugins
-      ripgrep
-      fd
-      tree-sitter
-
-      # For telescope
-      gcc
-      gnumake
-      
-      # For formatters
-      prettierd
-      stylua
-      rustfmt
-      nixfmt
-    ];
-  };
-
-  # AstroNvim installation and configuration
-  home.activation.installAstroNvim = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    if [ ! -d "$HOME/.config/nvim" ]; then
-      $DRY_RUN_CMD git clone --depth 1 https://github.com/AstroNvim/AstroNvim $HOME/.config/nvim
-    fi
-  '';
-
-  # Create AstroNvim user configuration
-  xdg.configFile."nvim/lua/user/init.lua".text = ''
+}: let
+  userConfig = pkgs.writeText "user-config.lua" ''
     return {
       colorscheme = "catppuccin",
       
@@ -130,5 +91,70 @@
         })
       end,
     }
+  '';
+
+  setup-astronvim = pkgs.writeShellScriptBin "setup-astronvim" ''
+    # Remove existing neovim config
+    rm -rf $HOME/.config/nvim
+    rm -rf $HOME/.local/share/nvim
+    rm -rf $HOME/.local/state/nvim
+    rm -rf $HOME/.cache/nvim
+
+    # Clone AstroNvim
+    ${pkgs.git}/bin/git clone --depth 1 https://github.com/AstroNvim/template $HOME/.config/nvim
+    rm -rf ~/.config/nvim/.git
+
+    # Create user config directory
+    mkdir -p $HOME/.config/nvim/lua/user
+
+    # Copy user configuration
+    cp ${userConfig} $HOME/.config/nvim/lua/user/init.lua
+
+    echo "AstroNvim has been installed. Please start nvim to complete plugin installation."
+  '';
+
+in {
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    vimAlias = true;
+
+    extraPackages = with pkgs; [
+      # Language servers
+      lua-language-server
+      rust-analyzer
+      nodePackages.typescript-language-server
+      nodePackages.vscode-langservers-extracted # html, css, json, eslint
+      omnisharp-roslyn # C#
+      nil # Nix
+      
+      # Tools required for various plugins
+      ripgrep
+      fd
+      tree-sitter
+
+      # For telescope
+      gcc
+      gnumake
+      
+      # For formatters
+      prettierd
+      stylua
+      nixfmt-classic
+      rustfmt
+    ];
+  };
+
+  # Add the setup script to home.packages
+  home.packages = [
+    setup-astronvim
+  ];
+
+  # Add manual installation instructions to shell startup
+  programs.zsh.initExtra = lib.mkAfter ''
+    # Check if AstroNvim is installed
+    if [ ! -d "$HOME/.config/nvim" ]; then
+      echo "AstroNvim is not installed. Run 'setup-astronvim' to install it."
+    fi
   '';
 }
