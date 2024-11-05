@@ -1,9 +1,9 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     # archives
-    zip
-    xz
-    unzip
+    zip # compression
+    xz # compression
+    unzip # decompression
 
     # utils
     ripgrep # recursively searches directories for a regex pattern
@@ -12,16 +12,17 @@
     fzf # A command-line fuzzy finder
 
     # misc
-    file
-    which
-    tree
-    lazygit
+    file # determine file type
+    which # locate a command
+    tree # list contents of directories in a tree-like format
+    lazygit # simple terminal UI for git commands
 
     # productivity
     glow # markdown previewer in terminal
 
     # programming
-    rustup
+    rustup # rust toolchain installer
+
   ];
 
   programs = {
@@ -32,8 +33,6 @@
       vimAlias = true;
     };
 
-    # A modern replacement for ‘ls’
-    # useful in bash/zsh prompt, not in nushell.
     eza = {
       enable = true;
       git = true;
