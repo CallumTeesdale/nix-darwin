@@ -38,8 +38,6 @@
       "zsh-autosuggestions"
       "atuin"
       "fnm"
-
-      "tailscale" # VPN
     ];
 
     casks = [
