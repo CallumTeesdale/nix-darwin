@@ -3,7 +3,6 @@
     neovim
     git
     just # use Justfile to simplify nix-darwin's commands 
-    dotnet-sdk_8 # .NET SDK
   ];
   environment.variables.EDITOR = "nvim";
 
@@ -21,26 +20,43 @@
 
     taps = [
       "homebrew/services"
+      "rust-lang/rust"
     ];
 
     brews = [
-      "wget"  # download files from the web
-      "curl" # transfer data with URLs
-      "bat" # cat clone with syntax highlighting
-      "fd"  # simple, fast and user-friendly alternative to find
-      "zoxide"  # a faster way to navigate your filesystem
-      "zsh-autosuggestions"  # fish-like autosuggestions for zsh
-      "atuin" # a modern prompt for the modern shell
-      "fnm"  # Node.js version manager
+      # Development tools
+      "dotnet-sdk" # .NET SDK
+      "rust-analyzer" # Rust language server
+      "cmake" # Required for some Rust builds
+      "llvm" # Required for some Rust builds
+      "protobuf" # Protocol buffers
+      "grpcurl" # Like curl, but for gRPC
+      
+      # CLI tools
+      "wget"
+      "curl" 
+      "bat"
+      "fd"
+      "zoxide"
+      "zsh-autosuggestions"
+      "atuin"
+      "fnm"
     ];
 
     casks = [
-      "visual-studio-code" # code editor
-      "1password"  # password manager
-      "docker" # containerization platform
-      "signal" # encrypted messaging
-      "raycast" # productivity tool
-      "stats" # system monitor
+      # IDEs and editors
+      "visual-studio-code"
+      "jetbrains-rider" # .NET IDE
+
+      # Dev tools
+      "docker"
+      "postman" # API testing
+      
+      # Utils
+      "1password"
+      "signal"
+      "raycast"
+      "stats"
     ];
   };
 }

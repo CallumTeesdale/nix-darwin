@@ -1,30 +1,54 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    # archives
-    zip # compression
-    xz # compression
-    unzip # decompression
-
-    # utils
-    ripgrep # recursively searches directories for a regex pattern
-    jq # A lightweight and flexible command-line JSON processor
-    yq-go # yaml processer https://github.com/mikefarah/yq
-    fzf # A command-line fuzzy finder
-    lazygit # simple terminal UI for git commands
-    glow # markdown previewer in terminal
-
-    # fonts
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-
-    # development
+    # Development
     rustup # rust toolchain installer
+    cargo-edit # cargo add/rm/upgrade commands
+    cargo-watch # watch for changes
+    cargo-audit # audit dependencies
+    cargo-outdated # show outdated dependencies
+    cargo-expand # expand macros
     nodejs # required for some neovim plugins
     python3 # required for some neovim plugins
+    
+    # Build tools
+    pkg-config # Required for some Rust builds
+    openssl # Required for some Rust builds
+    
+    # Database tools
+    sqlx-cli # SQL toolkit for Rust
+
+    # Kubernetes tools
+    kubectl
+    kubectx # switch between clusters and namespaces
+    k9s # terminal UI for kubernetes
+  
+
+    # Utils
+    ripgrep # recursively searches directories for a regex pattern
+    jq # JSON processor
+    yq-go # YAML processor
+    fzf # fuzzy finder
+    lazygit # git TUI
+    glow # markdown previewer
+    grex # regex generator
+
+    # Monitoring and debugging
+    htop # process viewer
+    bottom # system monitor
+    hyperfine # benchmarking tool
+    
+    # Archives
+    zip
+    xz
+    unzip
+
+    # Fonts
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
     # misc
-    file # determine file type
-    which # locate a command
-    tree # list contents of directories in a tree-like format
+    file
+    which
+    tree
   ];
 
   programs = {
