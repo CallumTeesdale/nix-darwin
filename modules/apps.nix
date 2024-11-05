@@ -56,6 +56,7 @@
       "zoxide" # A faster way to navigate your filesystem
       "zsh-autosuggestions" # Fish-like autosuggestions for zsh
       "atuin"
+      "fnm" # Node.js version manager
     ];
 
     # `brew install --cask`

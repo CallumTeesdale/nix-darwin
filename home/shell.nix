@@ -6,6 +6,7 @@
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
       source #{HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
       eval "$(atuin init zsh)"
+      eval "$(fnm env --use-on-cd --shell zsh)"
     '';
   };
 
