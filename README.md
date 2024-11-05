@@ -1,4 +1,4 @@
-# Nix Darwin Kickstarter - Rich Demo
+# Nix Darwin
 
  An extensive demo featuring a plethora of configurations that can serve as a reference for your setup. However, exercise caution, as it may **OVERWRITE** your system configuration. **DO NOT** deploy it directly to your system.
 
@@ -44,17 +44,5 @@ Your current nix-darwin configuration's structure should be as follows:
 │   ├── host-users.nix  # defines your hostname & all your system users
 │   ├── nix-core.nix    # nix's core configuration, you can ignore it for now
 │   └── system.nix      # defines your macOS's system configuration(like dock, trackpad, keyboard, finder, loginwindow, etc.)
-└── scripts
-    └── darwin_set_proxy.py  # a script to set http proxy for nix & homebrew.
 ```
-
-## Notes on Network Proxy
-
-If you are in a network environment that requires proxy(such as China), you may need to set up proxy for nix and homebrew.
-
-Related files:
-
-- [rich-demo/scripts/darwin_set_proxy.py](/rich-demo/scripts/darwin_set_proxy.py)
-- [rich-demo/Justfile](/rich-demo/Justfile)
-- [rich-demo - homebrew's mirror settings](/rich-demo/modules/homebrew-mirror.nix)
 
