@@ -1,15 +1,14 @@
-{ pkgs, ... }:
-
-  ###################################################################################
-  #
-  #  macOS's System configuration
-  #
-  #  All the configuration options are documented here:
-  #    https://daiderd.com/nix-darwin/manual/index.html#sec-options
-  #  Incomplete list of macOS `defaults` commands :
-  #    https://github.com/yannbertrand/macos-defaults
-  #
-  ###################################################################################
+{pkgs, ...}:
+###################################################################################
+#
+#  macOS's System configuration
+#
+#  All the configuration options are documented here:
+#    https://daiderd.com/nix-darwin/manual/index.html#sec-options
+#  Incomplete list of macOS `defaults` commands :
+#    https://github.com/yannbertrand/macos-defaults
+#
+###################################################################################
 {
   system = {
     stateVersion = 5;
@@ -21,56 +20,54 @@
     '';
 
     defaults = {
-      
       # customize dock
       dock = {
         autohide = true;
-        show-recents = false;  # disable recent apps
+        show-recents = false; # disable recent apps
 
-        wvous-tl-corner = 2;  # top-left - Mission Control
-        wvous-tr-corner = 13;  # top-right - Lock Screen
-        wvous-bl-corner = 3;  # bottom-left - Application Windows
-        wvous-br-corner = 4;  # bottom-right - Desktop
+        wvous-tl-corner = 2; # top-left - Mission Control
+        wvous-tr-corner = 13; # top-right - Lock Screen
+        wvous-bl-corner = 3; # bottom-left - Application Windows
+        wvous-br-corner = 4; # bottom-right - Desktop
       };
 
       # customize finder
       finder = {
-        _FXShowPosixPathInTitle = true;  # show full path in finder title
-        AppleShowAllExtensions = true;  # show all file extensions
-        FXEnableExtensionChangeWarning = false;  # disable warning when changing file extension
-        QuitMenuItem = true;  # enable quit menu item
-        ShowPathbar = true;  # show path bar
-        ShowStatusBar = true;  # show status bar
+        _FXShowPosixPathInTitle = true; # show full path in finder title
+        AppleShowAllExtensions = true; # show all file extensions
+        FXEnableExtensionChangeWarning = false; # disable warning when changing file extension
+        QuitMenuItem = true; # enable quit menu item
+        ShowPathbar = true; # show path bar
+        ShowStatusBar = true; # show status bar
       };
 
       # customize trackpad
       trackpad = {
-        Clicking = true;  # enable tap to click
-        TrackpadRightClick = true;  # enable two finger right click
-        TrackpadThreeFingerDrag = false;  # enable three finger drag
+        Clicking = true; # enable tap to click
+        TrackpadRightClick = true; # enable two finger right click
+        TrackpadThreeFingerDrag = false; # enable three finger drag
       };
-
 
       # Incomplete list of macOS `defaults` commands :
       #   https://github.com/yannbertrand/macos-defaults
       NSGlobalDomain = {
         # `defaults read NSGlobalDomain "xxx"`
-        "com.apple.swipescrolldirection" = true;  # enable natural scrolling(default to true)
-        "com.apple.sound.beep.feedback" = 0;  # disable beep sound when pressing volume up/down key
-        AppleInterfaceStyle = "Dark";  # dark mode
-        AppleKeyboardUIMode = 3;  # Mode 3 enables full keyboard control.
-        ApplePressAndHoldEnabled = true;  # enable press and hold
+        "com.apple.swipescrolldirection" = true; # enable natural scrolling(default to true)
+        "com.apple.sound.beep.feedback" = 0; # disable beep sound when pressing volume up/down key
+        AppleInterfaceStyle = "Dark"; # dark mode
+        AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
+        ApplePressAndHoldEnabled = true; # enable press and hold
 
-        InitialKeyRepeat = 15;  # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
+        InitialKeyRepeat = 15; # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
 
-        KeyRepeat = 3;  # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
+        KeyRepeat = 3; # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
 
-        NSAutomaticCapitalizationEnabled = false;  # disable auto capitalization
-        NSAutomaticDashSubstitutionEnabled = false;  # disable auto dash substitution
-        NSAutomaticPeriodSubstitutionEnabled = false;  # disable auto period substitution
-        NSAutomaticQuoteSubstitutionEnabled = false;  # disable auto quote substitution
-        NSAutomaticSpellingCorrectionEnabled = false;  # disable auto spelling correction
-        NSNavPanelExpandedStateForSaveMode = true;  # expand save panel by default
+        NSAutomaticCapitalizationEnabled = false; # disable auto capitalization
+        NSAutomaticDashSubstitutionEnabled = false; # disable auto dash substitution
+        NSAutomaticPeriodSubstitutionEnabled = false; # disable auto period substitution
+        NSAutomaticQuoteSubstitutionEnabled = false; # disable auto quote substitution
+        NSAutomaticSpellingCorrectionEnabled = false; # disable auto spelling correction
+        NSNavPanelExpandedStateForSaveMode = true; # expand save panel by default
         NSNavPanelExpandedStateForSaveMode2 = true;
       };
 
@@ -124,14 +121,13 @@
       };
 
       loginwindow = {
-        GuestEnabled = false;  # disable guest user
-        SHOWFULLNAME = true;  # show full name in login window
+        GuestEnabled = false; # disable guest user
+        SHOWFULLNAME = true; # show full name in login window
       };
     };
 
     keyboard = {
       enableKeyMapping = true;
-
     };
   };
 

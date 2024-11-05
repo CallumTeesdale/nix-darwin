@@ -7,6 +7,7 @@
     ./core.nix
     ./git.nix
     ./starship.nix
+    ./alacritty.nix
   ];
 
   home = {

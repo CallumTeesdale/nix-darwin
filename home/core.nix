@@ -10,23 +10,24 @@
     jq # A lightweight and flexible command-line JSON processor
     yq-go # yaml processer https://github.com/mikefarah/yq
     fzf # A command-line fuzzy finder
+    lazygit # simple terminal UI for git commands
+    glow # markdown previewer in terminal
+
+    # fonts
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+
+    # development
+    rustup # rust toolchain installer
+    nodejs # required for some neovim plugins
+    python3 # required for some neovim plugins
 
     # misc
     file # determine file type
     which # locate a command
     tree # list contents of directories in a tree-like format
-    lazygit # simple terminal UI for git commands
-
-    # productivity
-    glow # markdown previewer in terminal
-
-    # programming
-    rustup # rust toolchain installer
-
   ];
 
   programs = {
-    # modern vim
     neovim = {
       enable = true;
       defaultEditor = true;
@@ -40,7 +41,6 @@
       enableZshIntegration = true;
     };
 
-    # terminal file manager
     yazi = {
       enable = true;
       enableZshIntegration = true;

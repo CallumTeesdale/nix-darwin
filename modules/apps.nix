@@ -1,15 +1,9 @@
 { pkgs, ... }: {
-
-  ##########################################################################
-  # 
-  #  Install all apps and packages here.
-  #
-  ##########################################################################
-
   environment.systemPackages = with pkgs; [
     neovim
     git
     just # use Justfile to simplify nix-darwin's commands 
+    dotnet-sdk_8 # .NET SDK
   ];
   environment.variables.EDITOR = "nvim";
 
@@ -43,9 +37,7 @@
     casks = [
       "visual-studio-code" # code editor
       "1password"  # password manager
-      "alacritty" # GPU-accelerated terminal emulator
       "docker" # containerization platform
-
       "signal" # encrypted messaging
       "raycast" # productivity tool
       "stats" # system monitor

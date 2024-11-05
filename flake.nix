@@ -28,7 +28,6 @@
     home-manager,
     ...
   }: let
-  
     username = "callum";
     useremail = "callumjamesteesdale@gmail.com";
     system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin

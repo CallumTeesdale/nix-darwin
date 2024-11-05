@@ -12,7 +12,7 @@
 
   home.shellAliases = {
     k = "kubectl";
-    
+
     # docker
     dgc = "docker system prune -a";
   };
