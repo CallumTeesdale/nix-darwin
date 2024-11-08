@@ -20,6 +20,7 @@
 
     taps = [
       "homebrew/services"
+      "gcenx/wine"
     ];
 
     brews = [
@@ -28,6 +29,7 @@
       "llvm" # Required for some Rust builds
       "protobuf" # Protocol buffers
       "grpcurl" # Like curl, but for gRPC
+      "winetricks" # Wine tricks
 
       # CLI tools
       "wget"
@@ -47,7 +49,7 @@
       # Dev tools
       "docker"
       "dotnet-sdk" # .NET SDK
-      "insomnia" # REST client
+      "wine-crossover" # Wine for running Windows apps
 
       # Utils
       "1password"
@@ -57,6 +59,7 @@
       "tailscale"
       "slack"
       "twingate"
+      "whisky"
     ];
   };
 }

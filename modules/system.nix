@@ -1,11 +1,11 @@
-{pkgs, ...}:
+{pkgs, config, ...}:
 ###################################################################################
 #
 #  macOS's System configuration
 #
 #  All the configuration options are documented here:
 #    https://daiderd.com/nix-darwin/manual/index.html#sec-options
-#  Incomplete list of macOS `defaults` commands :
+#  Incomplete list of macOS `defaults` commands:
 #    https://github.com/yannbertrand/macos-defaults
 #
 ###################################################################################
@@ -19,6 +19,26 @@
       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     '';
 
+    activationScripts.applications.text = let
+      env = pkgs.buildEnv {
+        name = "system-applications";
+        paths = config.environment.systemPackages;
+        pathsToLink = "/Applications";
+      };
+    in
+      pkgs.lib.mkForce ''
+        # Set up applications.
+        echo "setting up /Applications..." >&2
+        rm -rf /Applications/Nix\ Apps
+        mkdir -p /Applications/Nix\ Apps
+        find ${env}/Applications -maxdepth 1 -type l -exec readlink '{}' + |
+        while read -r src; do
+          app_name=$(basename "$src")
+          echo "copying $src" >&2
+          ${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
+        done
+      '';
+
     defaults = {
       # customize dock
       dock = {
@@ -29,6 +49,12 @@
         wvous-tr-corner = 13; # top-right - Lock Screen
         wvous-bl-corner = 3; # bottom-left - Application Windows
         wvous-br-corner = 4; # bottom-right - Desktop
+        persistent-apps = [
+          "/Applications/Alacritty.app"
+          "/System/Applications/Safari.app"
+          "/System/Applications/System Settings.app"
+          "/System/Applications/Finder.app"
+        ];
       };
 
       # customize finder
@@ -48,20 +74,15 @@
         TrackpadThreeFingerDrag = false; # enable three finger drag
       };
 
-      # Incomplete list of macOS `defaults` commands :
-      #   https://github.com/yannbertrand/macos-defaults
       NSGlobalDomain = {
-        # `defaults read NSGlobalDomain "xxx"`
         "com.apple.swipescrolldirection" = true; # enable natural scrolling(default to true)
         "com.apple.sound.beep.feedback" = 0; # disable beep sound when pressing volume up/down key
+        "com.apple.mouse.liner" = true; # disable mouse acceleration
         AppleInterfaceStyle = "Dark"; # dark mode
         AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
         ApplePressAndHoldEnabled = true; # enable press and hold
-
         InitialKeyRepeat = 15; # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
-
         KeyRepeat = 3; # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
-
         NSAutomaticCapitalizationEnabled = false; # disable auto capitalization
         NSAutomaticDashSubstitutionEnabled = false; # disable auto dash substitution
         NSAutomaticPeriodSubstitutionEnabled = false; # disable auto period substitution
@@ -73,12 +94,10 @@
 
       CustomUserPreferences = {
         ".GlobalPreferences" = {
-          # automatically switch to a new space when switching to the application
-          AppleSpacesSwitchOnActivate = true;
+          AppleSpacesSwitchOnActivate = true; # automatically switch to a new space when switching to the application
         };
         NSGlobalDomain = {
-          # Add a context menu item for showing the Web Inspector in web views
-          WebKitDeveloperExtras = true;
+          WebKitDeveloperExtras = true; # Add a context menu item for showing the Web Inspector in web views
         };
         "com.apple.finder" = {
           ShowExternalHardDrivesOnDesktop = true;
@@ -86,8 +105,7 @@
           ShowMountedServersOnDesktop = true;
           ShowRemovableMediaOnDesktop = true;
           _FXSortFoldersFirst = true;
-          # When performing a search, search the current folder by default
-          FXDefaultSearchScope = "SCcf";
+          FXDefaultSearchScope = "SCcf"; # When performing a search, search the current folder by default
         };
         "com.apple.desktopservices" = {
           # Avoid creating .DS_Store files on network or USB volumes
@@ -105,8 +123,7 @@
           StandardHideWidgets = 0;
         };
         "com.apple.screensaver" = {
-          # Require password immediately after sleep or screen saver begins
-          askForPassword = 1;
+          askForPassword = 1; # Require password immediately after sleep or screen saver begins
           askForPasswordDelay = 0;
         };
         "com.apple.screencapture" = {
@@ -116,8 +133,7 @@
         "com.apple.AdLib" = {
           allowApplePersonalizedAdvertising = false;
         };
-        # Prevent Photos from opening automatically when devices are plugged in
-        "com.apple.ImageCapture".disableHotPlug = true;
+        "com.apple.ImageCapture".disableHotPlug = true; # Prevent Photos from opening automatically when devices are plugged in
       };
 
       loginwindow = {
@@ -146,7 +162,6 @@
     packages = with pkgs; [
       material-design-icons
       font-awesome
-
       (nerdfonts.override {
         fonts = [
           # symbols icon only
