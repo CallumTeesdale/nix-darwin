@@ -50,10 +50,9 @@
         wvous-bl-corner = 3; # bottom-left - Application Windows
         wvous-br-corner = 4; # bottom-right - Desktop
         persistent-apps = [
-          "/Applications/Alacritty.app"
-          "/System/Applications/Safari.app"
+          "${pkgs.alacritty}/Applications/Alacritty.app"
+          "/Applications/Safari.app"
           "/System/Applications/System Settings.app"
-          "/System/Applications/Finder.app"
         ];
       };
 
@@ -62,6 +61,7 @@
         _FXShowPosixPathInTitle = true; # show full path in finder title
         AppleShowAllExtensions = true; # show all file extensions
         FXEnableExtensionChangeWarning = false; # disable warning when changing file extension
+        FXPreferredViewStyle = "Nlsv"; # set default view style to list view
         QuitMenuItem = true; # enable quit menu item
         ShowPathbar = true; # show path bar
         ShowStatusBar = true; # show status bar
@@ -77,7 +77,6 @@
       NSGlobalDomain = {
         "com.apple.swipescrolldirection" = true; # enable natural scrolling(default to true)
         "com.apple.sound.beep.feedback" = 0; # disable beep sound when pressing volume up/down key
-        "com.apple.mouse.liner" = true; # disable mouse acceleration
         AppleInterfaceStyle = "Dark"; # dark mode
         AppleKeyboardUIMode = 3; # Mode 3 enables full keyboard control.
         ApplePressAndHoldEnabled = true; # enable press and hold
@@ -95,6 +94,7 @@
       CustomUserPreferences = {
         ".GlobalPreferences" = {
           AppleSpacesSwitchOnActivate = true; # automatically switch to a new space when switching to the application
+          "com.apple.mouse.scaling" = -1.0; # set mouse speed to off
         };
         NSGlobalDomain = {
           WebKitDeveloperExtras = true; # Add a context menu item for showing the Web Inspector in web views
