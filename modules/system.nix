@@ -94,7 +94,7 @@
       CustomUserPreferences = {
         ".GlobalPreferences" = {
           AppleSpacesSwitchOnActivate = true; # automatically switch to a new space when switching to the application
-          "com.apple.mouse.scaling" = -1.0; # set mouse speed to off
+          "com.apple.mouse.scaling" = 1; # set mouse speed to off
         };
         NSGlobalDomain = {
           WebKitDeveloperExtras = true; # Add a context menu item for showing the Web Inspector in web views

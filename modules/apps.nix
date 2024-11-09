@@ -16,6 +16,12 @@
     };
 
     masApps = {
+      Pages = 409201541; # Pages
+      Numbers = 40920154; # Numbers
+      Keynote = 409183694; # Keynote
+      Spark = 1176895641; # Spark
+      Boop = 1518425043; # Boop
+      "SSH Files" = 1336634154; # SSH Files
     };
 
     taps = [
@@ -45,6 +51,7 @@
     casks = [
       # IDEs and editors
       "visual-studio-code"
+      "jetbrains-toolbox"
 
       # Dev tools
       "docker"
