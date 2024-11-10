@@ -22,6 +22,7 @@
       Spark = 1176895641; # Spark
       Boop = 1518425043; # Boop
       "SSH Files" = 1336634154; # SSH Files
+      "Claude by Anthropic" = 6473753684; # Claude
     };
 
     taps = [
@@ -52,11 +53,15 @@
       # IDEs and editors
       "visual-studio-code"
       "jetbrains-toolbox"
+      "zed"
 
       # Dev tools
       "docker"
       "dotnet-sdk" # .NET SDK
       "wine-crossover" # Wine for running Windows apps
+
+      #Chat 
+      "discord"
 
       # Utils
       "1password"
