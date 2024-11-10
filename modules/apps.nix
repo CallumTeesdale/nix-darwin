@@ -28,6 +28,7 @@
     taps = [
       "homebrew/services"
       "gcenx/wine"
+      "nikitabobko/tap"
     ];
 
     brews = [
@@ -72,6 +73,7 @@
       "slack"
       "twingate"
       "whisky"
+      "aerospace"
     ];
   };
 }
