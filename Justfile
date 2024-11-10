@@ -1,8 +1,3 @@
-# just is a command runner, Justfile is very similar to Makefile, but simpler.
-
-# TODO update hostname here!
-hostname := "mac"
-
 # List all the just commands
 default:
   @just --list
@@ -13,20 +8,19 @@ default:
 #
 ############################################################################
 
-
 [group('desktop')]
-darwin:
-  nix build .#darwinConfigurations.{{hostname}}.system \
+darwin host:
+  nix build .#darwinConfigurations.{{host}}.system \
     --extra-experimental-features 'nix-command flakes'
 
-  ./result/sw/bin/darwin-rebuild switch --flake .#{{hostname}}
+  ./result/sw/bin/darwin-rebuild switch --flake .#{{host}}
 
 [group('desktop')]
-darwin-debug:
-  nix build .#darwinConfigurations.{{hostname}}.system --show-trace --verbose \
+darwin-debug host:
+  nix build .#darwinConfigurations.{{host}}.system --show-trace --verbose \
     --extra-experimental-features 'nix-command flakes'
 
-  ./result/sw/bin/darwin-rebuild switch --flake .#{{hostname}} --show-trace --verbose
+  ./result/sw/bin/darwin-rebuild switch --flake .#{{host}} --show-trace --verbose
 
 ############################################################################
 #

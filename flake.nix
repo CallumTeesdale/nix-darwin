@@ -28,37 +28,61 @@
     home-manager,
     ...
   }: let
-    username = "callum";
-    useremail = "callumjamesteesdale@gmail.com";
-    system = "aarch64-darwin"; # aarch64-darwin or x86_64-darwin
-    hostname = "mac";
-
-    specialArgs =
-      inputs
-      // {
-        inherit username useremail hostname;
-      };
-  in {
-    darwinConfigurations."${hostname}" = darwin.lib.darwinSystem {
-      inherit system specialArgs;
-      modules = [
-        ./modules/nix-core.nix
-        ./modules/system.nix
-        ./modules/apps.nix
-        ./modules/host-users.nix
-
-        # home manager
-        home-manager.darwinModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = specialArgs;
-          home-manager.users.${username} = import ./home;
-        }
-      ];
+    # Common configuration
+    commonConfig = {
+      username = "callum";
+      useremail = "callumjamesteesdale@gmail.com";
     };
 
+    # Host-specific configurations
+    hosts = {
+      # MacBook Air configuration
+      "macbook" = {
+        system = "aarch64-darwin";
+        extraModules = [./hosts/macbook/configuration.nix];
+      };
+      
+      # Mac Mini configuration
+      "mac-mini" = {
+        system = "aarch64-darwin";  # Change to x86_64-darwin if it's an Intel Mac Mini
+        extraModules = [./hosts/mac-mini/configuration.nix];
+      };
+    };
+
+    # Function to create a Darwin configuration
+    mkDarwinConfig = {hostname, system, extraModules}: let
+      specialArgs = inputs // commonConfig // {
+        inherit hostname;
+      };
+    in
+      darwin.lib.darwinSystem {
+        inherit system specialArgs;
+        modules = [
+          # Common modules
+          ./modules/nix-core.nix
+          ./modules/system.nix
+          ./modules/apps.nix
+          ./modules/host-users.nix
+
+          # home manager
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = specialArgs;
+            home-manager.users.${commonConfig.username} = import ./home;
+          }
+        ] 
+        ++ extraModules;  # Add host-specific modules
+      };
+  in {
+    # Create configurations for each host
+    darwinConfigurations = builtins.mapAttrs 
+      (hostname: hostConfig: mkDarwinConfig (hostConfig // { inherit hostname; })) 
+      hosts;
+
     # nix code formatter
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+    formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;
+    formatter.x86_64-darwin = nixpkgs.legacyPackages.x86_64-darwin.alejandra;
   };
 }
