@@ -3,6 +3,7 @@
     neovim
     git
     just # use Justfile to simplify nix-darwin's commands
+    direnv
   ];
   environment.variables.EDITOR = "nvim";
 
