@@ -1,0 +1,38 @@
+name: "Check Nix Configuration"
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  check:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@main
+      with:
+        extra-conf: |
+          extra-platforms = aarch64-darwin x86_64-darwin
+          extra-experimental-features = nix-command flakes
+    
+    - name: Check Flake Inputs
+      run: nix flake check
+      
+    - name: Check Nix Format
+      run: nix fmt
+
+    - name: Build Mac Mini Configuration
+      run: |
+        nix build .#darwinConfigurations.mac-mini.system \
+          --dry-run \
+          --extra-experimental-features 'nix-command flakes'
+
+    - name: Build MacBook Configuration
+      run: |
+        nix build .#darwinConfigurations.macbook.system \
+          --dry-run \
+          --extra-experimental-features 'nix-command flakes'

@@ -1,0 +1,27 @@
+repos:
+- repo: local
+  hooks:
+    - id: nixfmt
+      name: Format Nix files
+      entry: nix fmt
+      language: system
+      files: \.nix$
+      pass_filenames: false
+
+    - id: nix-flake-check
+      name: Check Nix Flake
+      entry: nix flake check
+      language: system
+      pass_filenames: false
+      
+    - id: check-hosts
+      name: Check Host Configurations
+      entry: |
+        #!/usr/bin/env bash
+        set -e
+        for host in macbook mac-mini; do
+          echo "Checking $host configuration..."
+          nix build .#darwinConfigurations.$host.system --dry-run
+        done
+      language: system
+      pass_filenames: false
