@@ -61,6 +61,8 @@
       "docker"
       "dotnet-sdk" # .NET SDK
       "wine-crossover" # Wine for running Windows apps
+      "hoppscotch"
+      "redisinsight"
 
       #Chat 
       "discord"
