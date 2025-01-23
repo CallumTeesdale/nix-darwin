@@ -66,6 +66,7 @@
 
       #Chat 
       "discord"
+      "spotify"
 
       # Utils
       "1password"
@@ -77,6 +78,7 @@
       "twingate"
       "whisky"
       "aerospace"
+      "warp"
     ];
   };
 }
