@@ -63,6 +63,7 @@
       "wine-crossover" # Wine for running Windows apps
       "hoppscotch"
       "redisinsight"
+      "warp"
 
       #Chat 
       "discord"
@@ -77,7 +78,6 @@
       "slack"
       "twingate"
       "whisky"
-      "aerospace"
       "warp"
     ];
   };
