@@ -78,7 +78,6 @@
       "slack"
       "twingate"
       "whisky"
-      "warp"
     ];
   };
 }
