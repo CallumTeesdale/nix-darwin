@@ -39,6 +39,7 @@
       "protobuf" # Protocol buffers
       "grpcurl" # Like curl, but for gRPC
       "winetricks" # Wine tricks
+      "opentofu" # OpenTofu
 
       # CLI tools
       "wget"
