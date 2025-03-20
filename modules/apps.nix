@@ -66,7 +66,7 @@
       "redisinsight"
       "warp"
 
-      #Chat 
+      #Chat
       "discord"
       "spotify"
 
